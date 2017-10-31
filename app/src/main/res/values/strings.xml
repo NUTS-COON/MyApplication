@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="view">View</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+
+    <string name="error_invalid_email">Invalid email address. Example: test@mail.com</string>
+    <string name="error_invalid_phone">Invalid phone number. Example: +70123456789</string>
+    <string name="error_invalid_password">Use letters and numbers. Minimum length 6</string>
+    <string name="send_btn">send by email</string>
+</resources>
