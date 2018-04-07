@@ -9,5 +9,7 @@
     <string name="error_invalid_email">Invalid email address. Example: test@mail.com</string>
     <string name="error_invalid_phone">Invalid phone number. Example: +70123456789</string>
     <string name="error_invalid_password">Use letters and numbers. Minimum length 6</string>
+    <string name="error_photo">You must add a photo</string>
     <string name="send_btn">send by email</string>
+    <string name="permissions_is_not_granted">Storage permission isn\'t granted</string>
 </resources>

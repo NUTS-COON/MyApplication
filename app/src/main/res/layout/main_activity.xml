@@ -1,70 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="81dp">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/profile_image"
         android:layout_width="100dp"
-        android:layout_height="96dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:background="@drawable/profile_background"
+        android:src="@drawable/ic_photo_camera_black_40dp"
+        android:scaleType="center"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayoutEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image">
+        app:errorEnabled="true">
 
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress" />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayoutPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:counterEnabled="true"
         app:counterMaxLength="12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail"
         app:errorEnabled="true">
 
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
             android:hint="@string/phone"
             android:inputType="phone"
-            android:maxLength="12"/>
+            android:maxLength="12" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -72,38 +55,28 @@
         android:id="@+id/textInputLayoutPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPhone"
+        android:layout_marginTop="8dp"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/divider">
+        app:passwordToggleTint="@color/divider"
+        app:errorEnabled="true">
 
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btn_view"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@color/colorPrimary"
         android:text="@string/view"
-        android:textColor="@color/icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
+        android:textColor="@color/icon" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

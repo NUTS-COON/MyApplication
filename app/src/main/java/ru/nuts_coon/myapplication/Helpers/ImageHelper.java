@@ -1,36 +1,30 @@
-package ru.nuts_coon.myapplication;
+package ru.nuts_coon.myapplication.Helpers;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.os.Environment;
-import android.support.media.ExifInterface;
+import android.graphics.Path;
+import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.media.ExifInterface;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+public class ImageHelper {
 
-class AppModel {
-
-    private Context context;
-
-    AppModel(Context ctx){
-        this.context = ctx;
-    }
-
-    Uri getPhotoPath(){
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                + "/" + context.getString(R.string.app_name) + "/";
+    public Uri getPhotoPath(String appName){
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + appName + "/";
         createDir(path);
-
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String timeStamp = SimpleDateFormat.getDateTimeInstance().format(new Date());
         File photo = new File(path + timeStamp + ".jpeg");
-
         return Uri.fromFile(photo);
     }
 
@@ -41,7 +35,7 @@ class AppModel {
         }
     }
 
-    Bitmap getPicture(Uri path, int reqWidth, int reqHeight) throws IOException {
+    public Bitmap getPicture(Uri path, int reqWidth, int reqHeight, Context context) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path.getPath(), options);
@@ -55,7 +49,7 @@ class AppModel {
 
         int newWidth;
         int newHeight;
-        int orientation = getOrientation(path);
+        int orientation = getOrientation(path, context);
 
         if (orientation == 90 || orientation == 270){
             newWidth = width / (width / bm.getWidth());
@@ -74,6 +68,26 @@ class AppModel {
         return Bitmap.createScaledBitmap(bm, newWidth, newHeight, false);
     }
 
+    public Bitmap getRoundedShape(Bitmap scaleBitmapImage, int targetWidth, int targetHeight) {
+        Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
+                targetHeight,Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(targetBitmap);
+        Path path = new Path();
+        path.addCircle(((float) targetWidth - 1) / 2,
+                ((float) targetHeight - 1) / 2,
+                (Math.min(((float) targetWidth),
+                        ((float) targetHeight)) / 2),
+                Path.Direction.CCW);
+
+        canvas.clipPath(path);
+        canvas.drawBitmap(scaleBitmapImage,
+                new Rect(0, 0, scaleBitmapImage.getWidth(),
+                        scaleBitmapImage.getHeight()),
+                new Rect(0, 0, targetWidth,
+                        targetHeight), null);
+        return targetBitmap;
+    }
+
     private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -88,7 +102,7 @@ class AppModel {
         return inSampleSize;
     }
 
-    private int getOrientation(Uri uri) {
+    private int getOrientation(Uri uri, Context context) {
         if ("content".equals(uri.getScheme())) {
             Cursor cursor = context.getContentResolver().query(uri,
                     new String[] { MediaStore.Images.ImageColumns.ORIENTATION }, null, null, null);
@@ -122,17 +136,5 @@ class AppModel {
                 return -1;
             }
         }
-    }
-
-    String formatPhoneNumber(String phone){
-        String s = "";
-        if (phone.length() == 12){
-            s = phone.substring(0, 2)
-                    + " (" + phone.substring(2,5)
-                    + ") " + phone.substring(5, 8)
-                    + " " + phone.substring(8, 10)
-                    + " " + phone.substring(10);
-        }
-        return s;
     }
 }
